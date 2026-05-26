@@ -35,10 +35,10 @@ public class RotatingDoor : Door
         float startAngle = _doorTransform.localEulerAngles.y;
         float time = 0;
 
-        while (time < openDuration)
+        while (time < _openDuration)
         {
             time += Time.deltaTime;            
-            float currentTargetRotation = Mathf.LerpAngle(startAngle, targetRotate, time / openDuration);
+            float currentTargetRotation = Mathf.LerpAngle(startAngle, targetRotate, time / _openDuration);
             _doorTransform.localRotation = Quaternion.Euler(0, currentTargetRotation, 0);
 
             yield return null;

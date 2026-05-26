@@ -6,7 +6,7 @@ public abstract class Door : MonoBehaviour, IInteractable
     [Header("Door Config")]
     [SerializeField] protected string _name;
     [SerializeField] protected Transform _doorTransform;
-    [SerializeField] protected float openDuration = 1.0f;
+    [SerializeField] protected float _openDuration = 1.0f;
     [SerializeField] protected string _keyID;
     protected bool _isAnimating;
     protected bool _isLocked;
