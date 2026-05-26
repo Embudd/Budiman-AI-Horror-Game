@@ -2,11 +2,11 @@ using UnityEngine;
 using Unity.Cinemachine;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerCharacterMovement : MonoBehaviour
 {
     // Scripts References
     private InputProvider _inputProvider;
-    private PlayerStamina _playerStamina;  
+    private PlayerCharacterStamina _playerStamina;  
 
     [Header("Component References")]    
     [SerializeField] private Transform _mainCameraTransform;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         _inputProvider = InputProvider.Instance;
         BindEvents();
 
-        _playerStamina = GetComponent<PlayerStamina>();                 
+        _playerStamina = GetComponent<PlayerCharacterStamina>();                 
     }
     private void OnDestroy()
     {

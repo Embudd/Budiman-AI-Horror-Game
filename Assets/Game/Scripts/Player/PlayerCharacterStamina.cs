@@ -2,11 +2,11 @@ using System;
 using NUnit.Framework;
 using UnityEngine;
 
-public class PlayerStamina : MonoBehaviour
+public class PlayerCharacterStamina : MonoBehaviour
 {
     public event Action<float, float> OnStaminaChanged; 
 
-    private PlayerController _playerController;
+    private PlayerCharacterMovement _playerController;
 
     [Header("Stamina Settings")]
     private float _currentStamina;
@@ -18,7 +18,7 @@ public class PlayerStamina : MonoBehaviour
 
     void Awake()
     {
-        _playerController = GetComponent<PlayerController>();    
+        _playerController = GetComponent<PlayerCharacterMovement>();    
         _currentStamina = _maxStamina; 
     }
 

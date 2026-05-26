@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerStaminaUI : MonoBehaviour
 {
     [Header("ComponentReferences")]
-    [SerializeField]private PlayerStamina _playerStamina;
+    [SerializeField]private PlayerCharacterStamina _playerStamina;
 
     [Header("UI Settings")]
     [SerializeField] private TextMeshProUGUI _staminaFillText;
