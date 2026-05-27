@@ -20,7 +20,7 @@ public class InteractDetector : MonoBehaviour
 
     void OnDestroy()
     {
-        InputProvider.Instance.OnInteractEvent += Interact;
+        InputProvider.Instance.OnInteractEvent -= Interact;
     }
 
     void Update()
