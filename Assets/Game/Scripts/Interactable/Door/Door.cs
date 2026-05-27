@@ -7,9 +7,10 @@ public abstract class Door : MonoBehaviour, IInteractable
     [SerializeField] protected string _name;
     [SerializeField] protected Transform _doorTransform;
     [SerializeField] protected float _openDuration = 1.0f;
+    [SerializeField] protected bool _isLocked;
     [SerializeField] protected string _keyID;
-    protected bool _isAnimating;
-    protected bool _isLocked;
+        
+    protected bool _isAnimating;    
     protected bool _isOpen;
 
     protected Coroutine _animatingDoorCoroutine;
@@ -22,14 +23,27 @@ public abstract class Door : MonoBehaviour, IInteractable
     [ContextMenu("Open Door")]
     public void Interact(PlayerCharacter character)
     {
-        if (_isOpen != true)
+        if (_isLocked)
         {
-            Open();
+            bool hasKey = character.Inventory.CheckItem(_keyID);
+
+            if(hasKey)
+            {
+                _isLocked = false;
+                Open();
+            }
         }
         else
         {
-            Close();
-        }
+            if (_isOpen != true)
+            {
+                Open();
+            }
+            else
+            {
+                Close();
+            }    
+        }        
     }
 
     protected virtual void Open()
