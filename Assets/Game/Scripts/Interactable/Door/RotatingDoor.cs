@@ -6,7 +6,7 @@ public class RotatingDoor : Door
     [SerializeField] private float _openAngle;
     [SerializeField] private float _closeAngle;
 
-    protected override void Open()
+    public override void Open()
     {
         if (_animatingDoorCoroutine != null)
         {
@@ -17,7 +17,7 @@ public class RotatingDoor : Door
         base.Open();
     }
 
-    protected override void Close()
+    public override void Close()
     {
         if (_animatingDoorCoroutine != null)
         {
@@ -30,7 +30,7 @@ public class RotatingDoor : Door
 
     private IEnumerator RotateDoor(float targetRotate)
     {
-        _isAnimating = true;
+        IsAnimating = true;
 
         float startAngle = _doorTransform.localEulerAngles.y;
         float time = 0;
@@ -45,6 +45,6 @@ public class RotatingDoor : Door
         }
 
         _doorTransform.localRotation = Quaternion.Euler(0, targetRotate, 0);
-        _isAnimating = false;
+        IsAnimating = false;
     }
 }

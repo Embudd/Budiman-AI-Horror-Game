@@ -6,7 +6,7 @@ public class SlidingDoor : Door
     [SerializeField] private Vector3 _openPosition;
     [SerializeField] private Vector3 _closePosition;
 
-    protected override void Open()
+    public override void Open()
     {
         if (_animatingDoorCoroutine != null)
         {
@@ -17,7 +17,7 @@ public class SlidingDoor : Door
         base.Open();
     }
 
-    protected override void Close()
+    public override void Close()
     {
         if (_animatingDoorCoroutine != null)
         {
@@ -30,7 +30,7 @@ public class SlidingDoor : Door
 
     private IEnumerator SlideDoor(Vector3 targetPosition)
     {
-        _isAnimating = true;
+        IsAnimating = true;
 
         Vector3 startPosition = _doorTransform.localPosition;
         float time = 0f;
@@ -46,6 +46,6 @@ public class SlidingDoor : Door
         }
         
         _doorTransform.localPosition = targetPosition;
-        _isAnimating = false;
+        IsAnimating = false;
     }
 }

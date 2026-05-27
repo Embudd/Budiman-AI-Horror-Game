@@ -18,9 +18,16 @@ public class PlayerCharacterMovement : MonoBehaviour
     [SerializeField] private float _acceleration = 0.3f;
     [SerializeField] private float _decceleration = 0.3f;
     private float _currentSpeed;             
+    public bool Enabled { get; private set; } = true;         
 
-    private Vector3 _horizontalVelocity;
-    private Vector3 _cameraRelativeDirection;
+    [Header("Gravity Settings")]
+    [SerializeField] private float _gravityAcceleration;
+    [SerializeField] private float _groundCheckRadius;
+    [SerializeField] private LayerMask _groundLayer;
+
+    private Vector3 _velocityXZ; // Raw input direction
+    private Vector3 _cameraRelativeDirection; // Camera calculate direction
+    private float _velocityY;    
     private bool _isSprinting;    
 
     void Start()
@@ -37,8 +44,26 @@ public class PlayerCharacterMovement : MonoBehaviour
 
     void Update()
     {
+        CalculateFinalMovement();
+    }
+
+    public void SetEnabled(bool isEnabled)
+    {
+        Enabled = isEnabled;
+    }
+
+    private void CalculateFinalMovement()
+    {
+        if (Enabled == false) return;
+
+        CalculateGravity();
         CalculateAcceleration();
-        HandleMovement();
+        CalculateCameraRelativeDirection();
+
+        Vector3 cameraRelative = _cameraRelativeDirection * _currentSpeed;                
+        Vector3 finalMovement = new Vector3(cameraRelative.x, _velocityY, cameraRelative.z);                
+
+        _characterController.Move(finalMovement * Time.deltaTime);                
     }
     
     #region Input
@@ -54,7 +79,7 @@ public class PlayerCharacterMovement : MonoBehaviour
     }
     private void ReadMoveInput(Vector2 movementInput)
     {
-        _horizontalVelocity = new Vector3(movementInput.x, 0, movementInput.y);        
+        _velocityXZ = new Vector3(movementInput.x, 0, movementInput.y);        
     }
     private void ReadSprintInput(bool isSprinting)
     {
@@ -77,13 +102,13 @@ public class PlayerCharacterMovement : MonoBehaviour
 
     private void CalculateAcceleration()
     {
-        if (_horizontalVelocity.sqrMagnitude < 0.01f)
+        if (_velocityXZ.sqrMagnitude < 0.01f)
         {            
             _currentSpeed = 0;
             return;
         }
 
-        if (_isSprinting && _playerStamina.CanSprint() && IsFacingForward())
+        if (IsSprinting() && _playerStamina.CanSprint())
         {
             _currentSpeed += _acceleration * Time.deltaTime;
         }
@@ -94,9 +119,9 @@ public class PlayerCharacterMovement : MonoBehaviour
 
         _currentSpeed = Mathf.Clamp(_currentSpeed, _walkSpeed, _sprintSpeed);          
     }
-    private void HandleMovement()
+    private void CalculateCameraRelativeDirection()
     {
-        if (_horizontalVelocity.sqrMagnitude > 0.1f)
+        if (_velocityXZ.sqrMagnitude > 0.1f)
         {          
             Vector3 forward = _mainCameraTransform.forward;
             Vector3 right = _mainCameraTransform.right;
@@ -107,11 +132,33 @@ public class PlayerCharacterMovement : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            _cameraRelativeDirection = forward * _horizontalVelocity.z + right * _horizontalVelocity.x;            
-
-            Vector3 horizontalMove = _cameraRelativeDirection * _currentSpeed * Time.deltaTime;  
-            _characterController.Move(horizontalMove);
+            _cameraRelativeDirection = forward * _velocityXZ.z + right * _velocityXZ.x;            
         }
+    }
+    #endregion
+    #region Gravity
+    private bool IsGrounded()
+    {
+        return Physics.CheckSphere(transform.position, _groundCheckRadius, _groundLayer);
+    }
+    private void CalculateGravity()
+    {
+        // If player grounded set gravity to -2
+        if (IsGrounded() && _velocityY < 0)
+        {
+            _velocityY = -2;
+        }
+        else if (!IsGrounded()) // Increase gravity if player not grounded
+        {
+            _velocityY += _gravityAcceleration * Time.deltaTime; 
+            Debug.Log(_velocityY);
+        }        
+    }
+
+    private void OnDrawGizmos()
+    {
+      Gizmos.color = Color.red;
+      Gizmos.DrawWireSphere(transform.position, _groundCheckRadius);
     }
     #endregion
 }

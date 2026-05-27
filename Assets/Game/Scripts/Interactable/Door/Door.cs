@@ -9,8 +9,8 @@ public abstract class Door : MonoBehaviour, IInteractable
     [SerializeField] protected float _openDuration = 1.0f;
     [SerializeField] protected bool _isLocked;
     [SerializeField] protected string _keyID;
-        
-    protected bool _isAnimating;    
+
+    public bool IsAnimating;    
     protected bool _isOpen;
 
     protected Coroutine _animatingDoorCoroutine;
@@ -46,13 +46,13 @@ public abstract class Door : MonoBehaviour, IInteractable
         }        
     }
 
-    protected virtual void Open()
+    public virtual void Open()
     {
         _isOpen = true;
         OnDoorOpened?.Invoke();        
     }
 
-    protected virtual void Close()
+    public virtual void Close()
     {
         _isOpen = false;
         OnDoorClosed?.Invoke();        

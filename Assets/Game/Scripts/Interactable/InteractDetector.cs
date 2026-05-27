@@ -9,7 +9,9 @@ public class InteractDetector : MonoBehaviour
     [SerializeField] private Vector3 _detectorBoxSize;
     [SerializeField] private float _detectorDistance;
     [SerializeField] private LayerMask _interactableLayer;
-    
+
+    public bool Enabled { get; private set; } = true;     
+        
     private IInteractable _detectedInteractable;
     private bool _isInteracting;    
 
@@ -28,14 +30,21 @@ public class InteractDetector : MonoBehaviour
         UpdateDetection();
     }
 
+    public void SetEnabled(bool isEnabled)
+    {
+        Enabled = isEnabled;
+    }
+
     private void UpdateDetection()
-    {        
+    {            
         if (_isInteracting)
         {            
             _isInteracting = false;
             return;
         }
-                
+
+        if (Enabled == false) return;        
+
         bool isDetectingInteractable = Physics.BoxCast(_cameraTransform.position,
                                                         _detectorBoxSize * 0.5f,
                                                         _cameraTransform.forward,
@@ -55,14 +64,12 @@ public class InteractDetector : MonoBehaviour
         else
         {
             _detectedInteractable = null;
-        }
-
-        Debug.Log(_detectedInteractable);
+        }        
     }
 
     public void Interact()
     {        
-        if (_detectedInteractable == null) return;
+        if (_detectedInteractable == null || Enabled == false) return;
         
         _detectedInteractable.Interact(_owner);
         _detectedInteractable = null;        
@@ -80,6 +87,9 @@ public class InteractDetector : MonoBehaviour
                                                        Quaternion.identity,                                                                _detectorDistance,
                                                         _interactableLayer
                                                         );
+
+        if (Enabled == false) return;
+        
         if (isDetectingInteractable)
         {     
             Gizmos.color = Color.green;         
