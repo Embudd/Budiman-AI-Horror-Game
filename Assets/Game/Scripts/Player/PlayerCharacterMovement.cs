@@ -50,7 +50,7 @@ public class PlayerCharacterMovement : MonoBehaviour
     private void UnbindEvents()
     {
         _inputProvider.OnMoveEvent -= ReadMoveInput;
-        //_inputProvider.OnRunEvent -= HandleRun;
+        _inputProvider.OnSprintEvent -= ReadSprintInput;
     }
     private void ReadMoveInput(Vector2 movementInput)
     {

@@ -20,7 +20,7 @@ public abstract class Door : MonoBehaviour, IInteractable
     public event Action OnDoorClosed;
 
     [ContextMenu("Open Door")]
-    public void Interact()
+    public void Interact(PlayerCharacter character)
     {
         if (_isOpen != true)
         {
@@ -35,7 +35,7 @@ public abstract class Door : MonoBehaviour, IInteractable
     protected virtual void Open()
     {
         _isOpen = true;
-        OnDoorClosed?.Invoke();        
+        OnDoorOpened?.Invoke();        
     }
 
     protected virtual void Close()

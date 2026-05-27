@@ -9,13 +9,17 @@ public class Item : MonoBehaviour, IInteractable, IPickable
 
     public event Action OnItemPicked;
 
-    public void Interact()
+    [ContextMenu("Pickup Item")]
+    public void Interact(PlayerCharacter character)
     {
-        Pickup();
+        Pickup(character);
     }
 
-    public void Pickup()
+    public void Pickup(PlayerCharacter character)
     {
+        ItemData item = new ItemData(_data.Name, _data.ID);
+        character.Inventory.AddItem(item);
+
         OnItemPicked?.Invoke();
         Destroy(gameObject);
     }

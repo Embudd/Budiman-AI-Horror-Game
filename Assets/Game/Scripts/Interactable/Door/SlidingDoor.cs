@@ -35,6 +35,7 @@ public class SlidingDoor : Door
         Vector3 startPosition = _doorTransform.localPosition;
         float time = 0f;
         
+        
         while (time < _openDuration)
         {            
             time = time + Time.deltaTime;
