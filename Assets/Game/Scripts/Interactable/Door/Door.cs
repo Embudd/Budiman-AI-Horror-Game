@@ -7,15 +7,17 @@ public abstract class Door : MonoBehaviour, IInteractable
     [SerializeField] protected string _name;
     [SerializeField] protected Transform _doorTransform;
     [SerializeField] protected float _openDuration = 1.0f;
+    [SerializeField] protected LeanTweenType _easingType;
     [SerializeField] protected bool _isLocked;
     [SerializeField] protected string _keyID;
 
-    public bool IsAnimating;    
+    protected bool _isAnimating;    
     protected bool _isOpen;
 
-    protected Coroutine _animatingDoorCoroutine;
+    protected LTDescr _animatingDoorLeanTween;
 
     public string Name => _name;
+    public bool IsAnimating => _isAnimating;
 
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
@@ -56,5 +58,10 @@ public abstract class Door : MonoBehaviour, IInteractable
     {
         _isOpen = false;
         OnDoorClosed?.Invoke();        
+    }
+
+    void OnDestroy()
+    {
+        LeanTween.reset();
     }
 }

@@ -5,18 +5,28 @@ using UnityEngine;
 public class HideCloset : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _name;    
+
+    [Header("Hide Config")]
+    [SerializeField] private LeanTweenType _posEasingType;
+    [SerializeField] private LeanTweenType _rotEasingType;    
     [SerializeField] private Transform _hidePosition;    
-    [SerializeField] private Transform _unhidePosition;    
+    [SerializeField] private Transform _unhidePosition;        
     [SerializeField] private float _duration = 1;            
     [SerializeField] private Door _door;    
              
     private PlayerCharacter _hidingPlayer;
     private Coroutine _hideCoroutine;
     private Coroutine _unhideCoroutine;
+    private WaitWhile _waitWhileDoorAnimating;
 
     public bool IsHiding { get; private set; }
     public string Name => _name;
-  
+
+    private void Start()
+    {
+        _waitWhileDoorAnimating = new WaitWhile(() => _door.IsAnimating);
+    }
+
     public void Interact(PlayerCharacter character)
     {
         if (_hidePosition != null && _unhidePosition != null && _door != null)
@@ -55,26 +65,39 @@ public class HideCloset : MonoBehaviour, IInteractable
          
         _door.Open();
  
-        yield return new WaitWhile(() => _door.IsAnimating);
+        yield return _waitWhileDoorAnimating;
   
-        float time = 0f;
         Vector3 startPosition = _hidingPlayer.transform.position;        
-        float startRotation = _hidingPlayer.Camera.PanAxis;        
-        while (time < _duration)
-        {            
-            time = time + Time.deltaTime;         
-            _hidingPlayer.transform.position = Vector3.Lerp(startPosition, _hidePosition.position, time / _duration);            
-            float panAxis = Mathf.Lerp(startRotation, _hidePosition.eulerAngles.y, time / _duration);            
-            _hidingPlayer.Camera.SetPanAxisValue(panAxis);            
+        float startRotation = _hidingPlayer.Camera.PanAxis;     
+        
+        int moveID = LeanTween.move(_hidingPlayer.gameObject, _hidePosition.position, _duration).setEase(_posEasingType).id; 
+
+        int rotateID = LeanTween.value(gameObject, startRotation, _hidePosition.eulerAngles.y, _duration)
+                .setEase(_rotEasingType)
+                .setOnUpdate((float val) => 
+                {   
+                    _hidingPlayer.Camera.SetPanAxisValue(val);
+                }).id; 
+
+        
+        // Check if the tween finish
+        while (true)
+        {
+            LTDescr move = LeanTween.descr(moveID);
+            LTDescr rotate = LeanTween.descr(rotateID);
+
+            if (move == null && rotate == null)
+            {
+                break;
+            }
+
             yield return null;
         }
-    
-        _hidingPlayer.transform.position = _hidePosition.position;    
-        _hidingPlayer.transform.rotation = _hidePosition.rotation;
-         
+
         _door.Close();
   
-        yield return new WaitWhile(() => _door.IsAnimating);
+        yield return _waitWhileDoorAnimating;
+
         InputManager.Instance.OnInteractEvent += StopHiding;
     }
 
@@ -83,25 +106,32 @@ public class HideCloset : MonoBehaviour, IInteractable
         InputManager.Instance.OnInteractEvent -= StopHiding;
 
         _door.Open();        
-        yield return new WaitWhile(() => _door.IsAnimating);
-         
-        float time = 0f;
+        yield return _waitWhileDoorAnimating;                 
 
         Vector3 startPosition = _hidingPlayer.transform.position;        
-        float startRotation = _hidingPlayer.Camera.PanAxis;
-        
-        while (time < _duration)
-        {            
-            time = time + Time.deltaTime;            
-            _hidingPlayer.transform.position = Vector3.Lerp(startPosition, _unhidePosition.position, time / _duration);            
-            float panAxis = Mathf.Lerp(startRotation, _unhidePosition.rotation.y, time / _duration);        
-            _hidingPlayer.Camera.SetPanAxisValue(panAxis);
+        float startRotation = _hidingPlayer.Camera.PanAxis;     
+
+        int moveID = LeanTween.move(_hidingPlayer.gameObject, _unhidePosition.position, _duration).setEase(_posEasingType).id; 
+
+        int rotateID = LeanTween.value(gameObject, startRotation, _hidePosition.eulerAngles.y, _duration)
+                .setEase(_rotEasingType)
+                .setOnUpdate((float val) => 
+                {   
+                    _hidingPlayer.Camera.SetPanAxisValue(val);
+                }).id; 
+
+         while (true)
+        {
+            LTDescr move = LeanTween.descr(moveID);
+            LTDescr rotate = LeanTween.descr(rotateID);
+
+            if (move == null && rotate == null)
+            {
+                break;
+            }
 
             yield return null;
         }
-        
-        _hidingPlayer.transform.position = _unhidePosition.position;        
-        _hidingPlayer.transform.rotation = _unhidePosition.rotation;
   
         _door.Close();
          
@@ -111,6 +141,6 @@ public class HideCloset : MonoBehaviour, IInteractable
         SetIsHiding(false); 
         _hidingPlayer = null;
          
-        yield return new WaitWhile(() => _door.IsAnimating);
-    }    
+        yield return _waitWhileDoorAnimating;
+    }        
 }

@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RotatingDoor : Door
 {
@@ -8,43 +10,65 @@ public class RotatingDoor : Door
 
     public override void Open()
     {
-        if (_animatingDoorCoroutine != null)
+        if (_animatingDoorLeanTween != null)
         {
-            StopCoroutine(_animatingDoorCoroutine);
+            LeanTween.cancel(_animatingDoorLeanTween.id);
         }
 
-        _animatingDoorCoroutine = StartCoroutine(RotateDoor(_openAngle));
+        RotateDoor(_openAngle);
         base.Open();
     }
 
     public override void Close()
     {
-        if (_animatingDoorCoroutine != null)
+        if (_animatingDoorLeanTween != null)
         {
-            StopCoroutine(_animatingDoorCoroutine);
+            LeanTween.cancel(_animatingDoorLeanTween.id);
         }
 
-        _animatingDoorCoroutine = StartCoroutine(RotateDoor(_closeAngle));
+        RotateDoor(_closeAngle);
         base.Close();
     }
 
-    private IEnumerator RotateDoor(float targetRotate)
+    /*private IEnumerator RotateDoor(float targetRotate)
     {
-        IsAnimating = true;
+        
+        
+
+        //float time = 0;
+        // while (time < normalizedDuration)
+        // {
+        //     time += Time.deltaTime;            
+        //     float currentTargetRotation = Mathf.LerpAngle(startAngle, targetRotate, time / normalizedDuration);
+        //     _doorTransform.localRotation = Quaternion.Euler(0, currentTargetRotation, 0);
+
+        //     yield return null;
+        // }
+        yield return null;
+        _doorTransform.localRotation = Quaternion.Euler(0, targetRotate, 0);
+        _isAnimating = false;
+    }*/
+    private void RotateDoor(float targetRotate)
+    {
+        _isAnimating = true;
 
         float startAngle = _doorTransform.localEulerAngles.y;
-        float time = 0;
+        
+        // Get the angle to reach from start to target
+        float deltaAngle = Mathf.DeltaAngle(startAngle, targetRotate);
+                        
+        float totalDistance = _openAngle;
+        float angleDistance = Mathf.Abs(deltaAngle); // Abs it so it never be minus for time calculation
 
-        while (time < _openDuration)
-        {
-            time += Time.deltaTime;            
-            float currentTargetRotation = Mathf.LerpAngle(startAngle, targetRotate, time / _openDuration);
-            _doorTransform.localRotation = Quaternion.Euler(0, currentTargetRotation, 0);
+        // normalized time based on how far the angle from start to target 
+        float normalizedDuration = (angleDistance / totalDistance) * _openDuration;
 
-            yield return null;
-        }
+        _animatingDoorLeanTween =  LeanTween.value(startAngle, targetRotate, normalizedDuration)
+                                    .setEase(_easingType)
+                                    .setOnUpdate((float rot) => 
+                                        _doorTransform.localRotation = Quaternion.Euler(0, rot, 0))
+                                    .setOnComplete(() => _isAnimating = false);
 
-        _doorTransform.localRotation = Quaternion.Euler(0, targetRotate, 0);
-        IsAnimating = false;
+        
     }
 }
