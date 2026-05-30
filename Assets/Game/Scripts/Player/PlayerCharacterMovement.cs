@@ -5,7 +5,7 @@ using System;
 public class PlayerCharacterMovement : MonoBehaviour
 {
     // Scripts References
-    private InputProvider _inputProvider;
+    private InputManager _inputProvider;
     private PlayerCharacterStamina _playerStamina;  
 
     [Header("Component References")]    
@@ -21,7 +21,10 @@ public class PlayerCharacterMovement : MonoBehaviour
     public bool Enabled { get; private set; } = true;         
 
     [Header("Gravity Settings")]
+    [SerializeField] private float _gravity = -9.81f;
     [SerializeField] private float _gravityAcceleration;
+    [SerializeField] private float _minGravitySpeed;
+    [SerializeField] private float _maxGravitySpeed;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _groundLayer;
 
@@ -32,7 +35,7 @@ public class PlayerCharacterMovement : MonoBehaviour
 
     void Start()
     {       
-        _inputProvider = InputProvider.Instance;
+        _inputProvider = InputManager.Instance;
         BindEvents();
 
         _playerStamina = GetComponent<PlayerCharacterStamina>();                 
@@ -150,9 +153,10 @@ public class PlayerCharacterMovement : MonoBehaviour
         }
         else if (!IsGrounded()) // Increase gravity if player not grounded
         {
-            _velocityY += _gravityAcceleration * Time.deltaTime; 
-            Debug.Log(_velocityY);
+            _velocityY += _gravity * _gravityAcceleration * Time.deltaTime;             
         }        
+
+        _velocityY = Mathf.Clamp(_velocityY, _maxGravitySpeed, _minGravitySpeed);
     }
 
     private void OnDrawGizmos()

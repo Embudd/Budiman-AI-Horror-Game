@@ -75,12 +75,12 @@ public class HideCloset : MonoBehaviour, IInteractable
         _door.Close();
   
         yield return new WaitWhile(() => _door.IsAnimating);
-        InputProvider.Instance.OnInteractEvent += StopHiding;
+        InputManager.Instance.OnInteractEvent += StopHiding;
     }
 
      public IEnumerator Unhide()
     {        
-        InputProvider.Instance.OnInteractEvent -= StopHiding;
+        InputManager.Instance.OnInteractEvent -= StopHiding;
 
         _door.Open();        
         yield return new WaitWhile(() => _door.IsAnimating);

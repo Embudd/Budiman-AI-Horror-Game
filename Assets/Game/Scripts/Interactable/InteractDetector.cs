@@ -17,12 +17,12 @@ public class InteractDetector : MonoBehaviour
 
     void Start()
     {
-        InputProvider.Instance.OnInteractEvent += Interact;
+        InputManager.Instance.OnInteractEvent += Interact;
     }
 
     void OnDestroy()
     {
-        InputProvider.Instance.OnInteractEvent -= Interact;
+        InputManager.Instance.OnInteractEvent -= Interact;
     }
 
     void Update()

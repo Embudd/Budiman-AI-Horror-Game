@@ -3,15 +3,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static GameInputAction;
 
-public class InputProvider : MonoBehaviour, IPlayerActions
+public class InputManager : MonoBehaviour, IPlayerActions
 {
-    public static InputProvider Instance { get; private set; }
+    public static InputManager Instance { get; private set; }
 
     private GameInputAction _inputActions;
 
     public event Action<Vector2> OnMoveEvent;
     public event Action<bool> OnSprintEvent;
     public event Action OnInteractEvent;
+    public event Action OnFlashlightEvent;
 
     private void Awake()
     {
@@ -67,5 +68,13 @@ public class InputProvider : MonoBehaviour, IPlayerActions
     public void OnLook(InputAction.CallbackContext context)
     {
         // Look input already handled by Cinecmachine
+    }
+
+    public void OnFlashlight(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnFlashlightEvent?.Invoke();
+        }
     }
 }
