@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HideCloset : MonoBehaviour, IInteractable
@@ -62,6 +61,8 @@ public class HideCloset : MonoBehaviour, IInteractable
         _hidingPlayer.Movement.SetEnabled(false);        
         _hidingPlayer.InteractDetector.SetEnabled(false);        
         _hidingPlayer.Camera.ResetCameraRotation();
+
+        _hidingPlayer.transform.position = _unhidePosition.position;
          
         _door.Open();
  
