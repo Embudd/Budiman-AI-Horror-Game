@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Behavior;
+using System.Collections;
 
 public class GhostAIController : MonoBehaviour
 {
+    public event System.Action OnDespawn;
+
     [SerializeField] private SightPerception _sightPerception;
     [SerializeField] private PlayerCharacter _target;
     [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -13,4 +16,28 @@ public class GhostAIController : MonoBehaviour
     public PlayerCharacter Target => _target;
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public BehaviorGraphAgent BehaviorGraphAgent => _behaviorGraphAgent;
+
+    public void Despawn()
+    {
+        StartCoroutine(DespawnAfterEndOfFrame());
+    }
+
+    private IEnumerator DespawnAfterEndOfFrame()
+    {
+        if (_behaviorGraphAgent != null)
+        {
+            _behaviorGraphAgent.SetVariableValue("CanSeeTarget", false);
+            _behaviorGraphAgent.enabled = false;
+        }
+
+        if (_navMeshAgent != null && _navMeshAgent.isOnNavMesh)
+        {
+            _navMeshAgent.ResetPath();
+            _navMeshAgent.enabled = false;
+        }
+        
+        OnDespawn?.Invoke();
+        yield return new WaitForEndOfFrame();
+        gameObject.SetActive(false);
+    }
 }
