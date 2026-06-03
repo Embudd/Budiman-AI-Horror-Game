@@ -9,7 +9,7 @@ public class SightPerception : MonoBehaviour
     [SerializeField] private LayerMask _targetLayer;   
 
     public bool CanSeeTarget { get; private set; }
-    private Vector3 _lastSeenPosition;    
+    public Vector3 LastSeenPosition { get; private set; }
 
     private void Update()
     {
@@ -46,7 +46,7 @@ public class SightPerception : MonoBehaviour
         {
             if (hit.transform == _target)
             {                
-                _lastSeenPosition = _target.position;
+                LastSeenPosition = _target.position;
                 return true;
             }
         }
