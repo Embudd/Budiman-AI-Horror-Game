@@ -19,7 +19,7 @@ public class GhostSpawner : MonoBehaviour
     private void OnDestroy()
     {
         _aiController.OnGhostDespawn -= RestartSpawn;
-    }
+    }             
 
     public void RestartSpawn()
     {
@@ -40,6 +40,8 @@ public class GhostSpawner : MonoBehaviour
             RestartSpawn();
             yield break;
         }
+
+        SpawnGhost();
     }
 
     public void SpawnGhost()

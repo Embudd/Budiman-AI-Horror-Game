@@ -1,6 +1,7 @@
 using System;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
@@ -17,6 +18,24 @@ public partial class AgentWaitUntilReachDestinationAction : Action
 
     protected override Status OnUpdate()
     {
+        if (AI.Value == null)
+        {
+            return Status.Failure;
+        }
+
+        NavMeshAgent agent = AI.Value.NavMeshAgent;
+
+        if (agent.pathPending)
+        {
+            return Status.Running;
+        }
+
+        float distanceThreshold = 1f; // This threshold must be same as behaviourgraph navigate to player
+        if (agent.remainingDistance > agent.stoppingDistance + distanceThreshold)
+        {
+            return Status.Running;
+        }
+
         return Status.Success;
     }
 

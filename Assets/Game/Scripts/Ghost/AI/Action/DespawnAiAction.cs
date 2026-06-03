@@ -17,6 +17,12 @@ public partial class DespawnAiAction : Action
 
     protected override Status OnUpdate()
     {
+        if (AI.Value == null)
+        {
+            return Status.Failure;
+        }
+
+        AI.Value.Despawn();
         return Status.Success;
     }
 
