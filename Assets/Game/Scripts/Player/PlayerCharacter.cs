@@ -15,9 +15,15 @@ public class PlayerCharacter : MonoBehaviour
     public InventoryManager Inventory => _inventory;
     public CameraManager Camera => _camera;
 
+       public bool IsHiding { get; private set; }
     private void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    } 
+     
+    public void SetIsHiding(bool isHiding)
+    {
+        IsHiding = isHiding;
     }
 }

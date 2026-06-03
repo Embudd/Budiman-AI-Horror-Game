@@ -47,16 +47,12 @@ public class HideCloset : MonoBehaviour, IInteractable
         }        
         StartCoroutine(Unhide());
     }
-      
-    public void SetIsHiding(bool isHiding)
-    {
-        IsHiding = isHiding;
-    }
+    
 
     public IEnumerator Hide()
     {
         
-        SetIsHiding(true);        
+        _hidingPlayer.SetIsHiding(true);        
         _hidingPlayer.Camera.SetCameraInputEnabled(false);        
         _hidingPlayer.Movement.SetEnabled(false);        
         _hidingPlayer.InteractDetector.SetEnabled(false);        
@@ -139,7 +135,7 @@ public class HideCloset : MonoBehaviour, IInteractable
         _hidingPlayer.Camera.SetCameraInputEnabled(true);        
         _hidingPlayer.Movement.SetEnabled(true);        
         _hidingPlayer.InteractDetector.SetEnabled(true);        
-        SetIsHiding(false); 
+        _hidingPlayer.SetIsHiding(false); 
         _hidingPlayer = null;
          
         yield return _waitWhileDoorAnimating;

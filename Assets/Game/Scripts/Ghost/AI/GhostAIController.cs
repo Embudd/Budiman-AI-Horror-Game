@@ -5,7 +5,7 @@ using System.Collections;
 
 public class GhostAIController : MonoBehaviour
 {
-    public event System.Action OnDespawn;
+    public event System.Action OnGhostDespawn;
 
     [SerializeField] private SightPerception _sightPerception;
     [SerializeField] private PlayerCharacter _target;
@@ -36,7 +36,7 @@ public class GhostAIController : MonoBehaviour
             _navMeshAgent.enabled = false;
         }
         
-        OnDespawn?.Invoke();
+        OnGhostDespawn?.Invoke();
         yield return new WaitForEndOfFrame();
         gameObject.SetActive(false);
     }
