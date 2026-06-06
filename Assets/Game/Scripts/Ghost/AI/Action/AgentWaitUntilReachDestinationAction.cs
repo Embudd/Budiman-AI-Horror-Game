@@ -30,7 +30,7 @@ public partial class AgentWaitUntilReachDestinationAction : Action
             return Status.Running;
         }
 
-        float distanceThreshold = 1f; // This threshold must be same as behaviourgraph navigate to player
+        float distanceThreshold = 0.85f; // This threshold must be same as behaviourgraph navigate to player
         if (agent.remainingDistance > agent.stoppingDistance + distanceThreshold)
         {
             return Status.Running;

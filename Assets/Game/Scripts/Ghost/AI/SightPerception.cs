@@ -31,12 +31,12 @@ public class SightPerception : MonoBehaviour
         }
 
         // Field of view checking
-        Vector3 dirToTarget = (_target.position - _eyePosition.position);
+        Vector3 dirToTarget = _target.position - _eyePosition.position;
         float angleToTarget = Vector3.Angle(_eyePosition.forward, dirToTarget);
 
         // Divide by 2 because field of view is centered around the forward direction,
         // so we need to check if the angle is within half of the field of view on either side.
-        if (angleToTarget > _fieldOfView / 2f)
+        if (angleToTarget > _fieldOfView * 0.5f)
         {            
             return false;
         }
@@ -73,5 +73,7 @@ public class SightPerception : MonoBehaviour
 
         Gizmos.DrawRay(_eyePosition.position, leftSigth * _viewDistance);
         Gizmos.DrawRay(_eyePosition.position, rightSigth * _viewDistance);
+
+        Gizmos.DrawLine(transform.position, LastSeenPosition);
     }
 }

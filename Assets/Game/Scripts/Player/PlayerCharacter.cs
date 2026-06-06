@@ -15,7 +15,8 @@ public class PlayerCharacter : MonoBehaviour
     public InventoryManager Inventory => _inventory;
     public CameraManager Camera => _camera;
 
-       public bool IsHiding { get; private set; }
+    public bool IsHiding { get; private set; }
+    
     private void Awake()
     {
         Cursor.visible = false;
@@ -25,5 +26,10 @@ public class PlayerCharacter : MonoBehaviour
     public void SetIsHiding(bool isHiding)
     {
         IsHiding = isHiding;
+    }
+
+    public void Death()
+    {
+        Debug.Log("Death");
     }
 }
