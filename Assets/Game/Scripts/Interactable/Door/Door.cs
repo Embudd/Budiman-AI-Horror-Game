@@ -51,7 +51,7 @@ public abstract class Door : MonoBehaviour, IInteractable
     public virtual void Open()
     {
         _isOpen = true;
-        OnDoorOpened?.Invoke();        
+        OnDoorOpened?.Invoke();                
     }
 
     public virtual void Close()

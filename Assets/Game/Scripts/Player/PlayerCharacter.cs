@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
+    public event Action<string> OnPlayerDeath;
+
     [SerializeField] private PlayerCharacterMovement _movement;
     [SerializeField] private PlayerCharacterStamina _stamina;
     [SerializeField] private InteractDetector _interactDetector;
@@ -20,10 +22,9 @@ public class PlayerCharacter : MonoBehaviour
 
     public bool IsHiding { get; private set; }
     
-    private void Awake()
+    private void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        DisplayCursor.Instance.LockCursor();
     } 
      
     public void SetIsHiding(bool isHiding)
@@ -32,7 +33,8 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public void Death()
-    {
-        Debug.Log("Death");
-    }
+    {        
+        DisplayCursor.Instance.UnlockCursor();
+        OnPlayerDeath?.Invoke("LoseScreen");
+    }    
 }
