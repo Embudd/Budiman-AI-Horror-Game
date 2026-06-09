@@ -381,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.600586, y: 30}
-  m_SizeDelta: {x: 201.6415, y: 0}
+  m_AnchoredPosition: {x: -24.900146, y: 19.599976}
+  m_SizeDelta: {x: 187.8469, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &176437588
 MonoBehaviour:
@@ -782,7 +782,7 @@ Rigidbody:
   m_GameObject: {fileID: 327514559}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -981,6 +981,7 @@ GameObject:
   - component: {fileID: 356907282}
   - component: {fileID: 356907284}
   - component: {fileID: 356907283}
+  - component: {fileID: 356907285}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -1045,6 +1046,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356907281}
   m_CullTransparentMesh: 1
+--- !u!114 &356907285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356907281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1447592729bb444936facefe6f5046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrosshairUI
+  _crosshairImage: {fileID: 356907283}
+  _normalColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.68235296}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &379354336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,8 +1120,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Interact
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9225c8b43cfa0754795f042f51ad7825, type: 2}
+  m_sharedMaterial: {fileID: 1860626591598722080, guid: 9225c8b43cfa0754795f042f51ad7825, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1135,7 +1151,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2351,6 +2367,7 @@ MonoBehaviour:
   _staminaUI: {fileID: 245666010}
   _batteryUI: {fileID: 755993640}
   _interactionInfoUI: {fileID: 176437590}
+  _crosshairUI: {fileID: 356907285}
 --- !u!4 &1351827339
 Transform:
   m_ObjectHideFlags: 0
@@ -2797,7 +2814,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.4
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.1
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
@@ -2905,7 +2922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractDetector
   _cameraTransform: {fileID: 330585546}
   _owner: {fileID: 1952808554}
-  _detectorBoxSize: {x: 0.5, y: 0.5, z: 0.5}
+  _detectorBoxSize: {x: 0.1, y: 0.1, z: 0.1}
   _detectorDistance: 1.6
   _interactableLayer:
     serializedVersion: 2
@@ -3244,8 +3261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.82075, y: -40.81}
-  m_SizeDelta: {x: 201.6415, y: 0}
+  m_AnchoredPosition: {x: 93.92345, y: -23.44}
+  m_SizeDelta: {x: 187.8469, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131374385
 MonoBehaviour:
@@ -3267,10 +3284,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bedroom Door
+  m_text: Flashlight
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9225c8b43cfa0754795f042f51ad7825, type: 2}
+  m_sharedMaterial: {fileID: 1860626591598722080, guid: 9225c8b43cfa0754795f042f51ad7825, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3294,13 +3311,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 24
   m_fontSizeMax: 40
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3483,6 +3500,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3352158688967072548, guid: d5b0b0651d84d624ebcbaff506344ba6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.223
+      objectReference: {fileID: 0}
     - target: {fileID: 7164666673793300596, guid: d5b0b0651d84d624ebcbaff506344ba6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0565538
@@ -3605,6 +3626,7 @@ SceneRoots:
   - {fileID: 8166336064475381464}
   - {fileID: 6950462544093196135}
   - {fileID: 2396634989511031683}
+  - {fileID: 719876712}
   - {fileID: 1030269492}
   - {fileID: 1222063597}
   - {fileID: 1691375999}
@@ -3615,4 +3637,3 @@ SceneRoots:
   - {fileID: 1201448821}
   - {fileID: 2085577296}
   - {fileID: 1996293638}
-  - {fileID: 719876712}

@@ -62,6 +62,7 @@ public class InteractDetector : MonoBehaviour
 
                 HUDManager.Instance.InteractionInfoUI.SetItemNameText(_detectedInteractable.Name);
                 HUDManager.Instance.InteractionInfoUI.SetVisible(true);
+                HUDManager.Instance.CrosshairUI.SetHighligth(true);
             }
         }
         else
@@ -69,6 +70,7 @@ public class InteractDetector : MonoBehaviour
             _detectedInteractable = null;
 
             HUDManager.Instance.InteractionInfoUI.SetVisible(false);
+            HUDManager.Instance.CrosshairUI.SetHighligth(false);
         }        
     }
 
