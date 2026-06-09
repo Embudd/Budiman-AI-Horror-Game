@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
@@ -8,12 +9,14 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private InteractDetector _interactDetector;
     [SerializeField] private InventoryManager _inventory;
     [SerializeField] private CameraManager _camera;
+    [SerializeField] private Flashlight _flashLight;
 
     public PlayerCharacterMovement Movement => _movement;
     public PlayerCharacterStamina Stamina => _stamina;
     public InteractDetector InteractDetector => _interactDetector;
     public InventoryManager Inventory => _inventory;
     public CameraManager Camera => _camera;
+    public Flashlight Flashlight => _flashLight;
 
     public bool IsHiding { get; private set; }
     

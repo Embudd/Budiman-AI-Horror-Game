@@ -1,33 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Text;
-using TMPro;
 
 public class PlayerStaminaUI : MonoBehaviour
 {
-    [Header("ComponentReferences")]
-    [SerializeField]private PlayerCharacterStamina _playerStamina;
+    [SerializeField] private GameObject _uiObject;
+    [SerializeField] private Image _staminaFill;
 
-    [Header("UI Settings")]
-    [SerializeField] private TextMeshProUGUI _staminaFillText;
-    
-    private StringBuilder _staminaTextBuilder = new StringBuilder();
-
-    private void OnEnable()
+    public void SetVisible(bool isVisible)
     {
-        _playerStamina.OnStaminaChanged += UpdateStaminaUI;
+        _uiObject?.SetActive(isVisible);
     }
 
-    private void OnDisable()
+    public void SetStaminaFill(float currentValue, float maxValue)
     {
-        _playerStamina.OnStaminaChanged -= UpdateStaminaUI;
-    }
+        if (_staminaFill == null) return;
 
-    private void UpdateStaminaUI(float currentStamina, float maxStamina)
-    {        
-        _staminaTextBuilder.Clear();
-        _staminaTextBuilder.Append($"{currentStamina:F0}/{maxStamina:F0}");
-
-        _staminaFillText.text = _staminaTextBuilder.ToString();
+        _staminaFill.fillAmount = currentValue / maxValue;
     }
 }

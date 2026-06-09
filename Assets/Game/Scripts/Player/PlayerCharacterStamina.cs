@@ -3,10 +3,8 @@ using NUnit.Framework;
 using UnityEngine;
 
 public class PlayerCharacterStamina : MonoBehaviour
-{
-    public event Action<float, float> OnStaminaChanged; 
-
-    private PlayerCharacterMovement _playerController;
+{    
+    [SerializeField] private PlayerCharacterMovement _playerController;
 
     [Header("Stamina Settings")]
     private float _currentStamina;
@@ -16,10 +14,10 @@ public class PlayerCharacterStamina : MonoBehaviour
     [SerializeField] private float _regenCooldown = 2f;
     private float _regenTimer;
 
-    void Awake()
+    private void Start()
     {
-        _playerController = GetComponent<PlayerCharacterMovement>();    
         _currentStamina = _maxStamina; 
+        HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);
     }
 
     void Update()
@@ -57,8 +55,8 @@ public class PlayerCharacterStamina : MonoBehaviour
             _currentStamina += _sprintStaminaRegen * Time.deltaTime;
         }
 
-        _currentStamina = Mathf.Clamp(_currentStamina, 0, _maxStamina);
-        OnStaminaChanged?.Invoke(_currentStamina, _maxStamina);
+        _currentStamina = Mathf.Clamp(_currentStamina, 0, _maxStamina);      
+        HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);
     }
 
     public bool CanSprint()
