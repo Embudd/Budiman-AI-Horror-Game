@@ -8,8 +8,7 @@ public class Item : MonoBehaviour, IInteractable, IPickable
     public string Name => _data.Name;
 
     public event Action OnItemPicked;
-
-    [ContextMenu("Pickup Item")]
+    
     public void Interact(PlayerCharacter character)
     {
         Pickup(character);
