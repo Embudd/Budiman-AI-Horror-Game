@@ -21,8 +21,7 @@ public abstract class Door : MonoBehaviour, IInteractable
 
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
-
-    [ContextMenu("Open Door")]
+    
     public void Interact(PlayerCharacter character)
     {
         if (_isLocked)

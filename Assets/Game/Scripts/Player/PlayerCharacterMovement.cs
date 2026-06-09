@@ -100,6 +100,11 @@ public class PlayerCharacterMovement : MonoBehaviour
 
     public bool IsSprinting()
     {
+        if (_isSprinting)
+        {
+            HUDManager.Instance.StaminaUI.SetVisible(true);
+        }
+
         return _isSprinting && IsFacingForward();
     }
 

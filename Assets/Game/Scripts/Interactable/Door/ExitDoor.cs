@@ -8,8 +8,8 @@ public class ExitDoor : RotatingDoor
     public override void Open()
     {
         base.Open();
-        
-        DisplayCursor.Instance.UnlockCursor();
+
+        DisplayCursor.Instance.UnlockCursor();        
         OnExitDoorOpened?.Invoke("WinScreen");
     }
 }

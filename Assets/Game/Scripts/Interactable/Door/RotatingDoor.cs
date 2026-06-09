@@ -30,24 +30,6 @@ public class RotatingDoor : Door
         base.Close();
     }
 
-    /*private IEnumerator RotateDoor(float targetRotate)
-    {
-        
-        
-
-        //float time = 0;
-        // while (time < normalizedDuration)
-        // {
-        //     time += Time.deltaTime;            
-        //     float currentTargetRotation = Mathf.LerpAngle(startAngle, targetRotate, time / normalizedDuration);
-        //     _doorTransform.localRotation = Quaternion.Euler(0, currentTargetRotation, 0);
-
-        //     yield return null;
-        // }
-        yield return null;
-        _doorTransform.localRotation = Quaternion.Euler(0, targetRotate, 0);
-        _isAnimating = false;
-    }*/
     private void RotateDoor(float targetRotate)
     {
         _isAnimating = true;
@@ -66,7 +48,7 @@ public class RotatingDoor : Door
         _animatingDoorLeanTween =  LeanTween.value(startAngle, targetRotate, normalizedDuration)
                                     .setEase(_easingType)
                                     .setOnUpdate((float rot) => 
-                                        _doorTransform.localRotation = Quaternion.Euler(0, rot, 0))
+                                    _doorTransform.localRotation = Quaternion.Euler(0, rot, 0))
                                     .setOnComplete(() => _isAnimating = false);
 
         

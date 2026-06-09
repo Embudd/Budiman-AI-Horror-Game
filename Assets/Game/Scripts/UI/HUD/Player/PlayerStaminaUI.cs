@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerStaminaUI : MonoBehaviour
 {
     [SerializeField] private GameObject _uiObject;
-    [SerializeField] private Image _staminaFill;
+    [SerializeField] private Image _staminaFill;    
 
     public void SetVisible(bool isVisible)
     {
