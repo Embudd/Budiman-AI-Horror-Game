@@ -31,7 +31,7 @@ public class PlayerCharacterMovement : MonoBehaviour
     private Vector3 _velocityXZ; // Raw input direction
     private Vector3 _cameraRelativeDirection; // Camera calculate direction
     private float _velocityY;    
-    private bool _isSprinting;    
+    private bool _isSprintInputActive;    
 
     void Start()
     {       
@@ -86,7 +86,7 @@ public class PlayerCharacterMovement : MonoBehaviour
     }
     private void ReadSprintInput(bool isSprinting)
     {
-        _isSprinting = isSprinting;
+        _isSprintInputActive = isSprinting;
     }
     #endregion
     #region Movement
@@ -100,12 +100,12 @@ public class PlayerCharacterMovement : MonoBehaviour
 
     public bool IsSprinting()
     {
-        if (_isSprinting)
+        if (_isSprintInputActive)
         {
             HUDManager.Instance.StaminaUI.SetVisible(true);
         }
-
-        return _isSprinting && IsFacingForward();
+        
+        return _isSprintInputActive && IsFacingForward();
     }
 
     private void CalculateAcceleration()
