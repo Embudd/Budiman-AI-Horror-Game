@@ -21,6 +21,7 @@ public abstract class Door : MonoBehaviour, IInteractable
 
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
+    public event Action OnDoorLocked;
     
     public void Interact(PlayerCharacter character)
     {
@@ -32,6 +33,10 @@ public abstract class Door : MonoBehaviour, IInteractable
             {
                 _isLocked = false;
                 Open();
+            }
+            else
+            {
+                OnDoorLocked?.Invoke();
             }
         }
         else

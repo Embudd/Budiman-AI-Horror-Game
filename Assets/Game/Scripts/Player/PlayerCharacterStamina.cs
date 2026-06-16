@@ -12,6 +12,10 @@ public class PlayerCharacterStamina : MonoBehaviour
     [SerializeField] private float _sprintStaminaCost = 5f; 
     [SerializeField] private float _sprintStaminaRegen = 5f;
     [SerializeField] private float _regenCooldown = 2f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource _breathingAudio;
+
     private float _regenTimer;
     private Coroutine _stopRegenStaminaCoroutine;
     private bool _isWaitingRegenStamina;
@@ -84,6 +88,7 @@ public class PlayerCharacterStamina : MonoBehaviour
 
         _currentStamina = Mathf.Clamp(_currentStamina, 0, _maxStamina);        
         HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);
+         _breathingAudio.volume = 1 - (_currentStamina / _maxStamina);
     }
 
     private IEnumerator StopRegenStaminaWait()

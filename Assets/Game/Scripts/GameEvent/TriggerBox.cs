@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TriggerBox : MonoBehaviour
 {    
+    public event Action OnShowGhostEventTriggered;
+
     [SerializeField] private string _eventID;
     [SerializeField] private bool _autoActive;
     [SerializeField] private string _tag;
@@ -28,6 +30,11 @@ public class TriggerBox : MonoBehaviour
             if (_isOneTime)
             {
                 GameEventManager.Instance.TriggerEvent(_eventID);
+
+                if (_eventID == "ShowGhostEvent")
+                {
+                    OnShowGhostEventTriggered?.Invoke();    
+                }                
                 Destroy(gameObject);
             }
         }
