@@ -1,5 +1,5 @@
 public interface IInteractable
 {
     public string Name { get; }
-    public void Interact(PlayerCharacter character);
+    public void Interact(PlayerCharacter character);    
 }
