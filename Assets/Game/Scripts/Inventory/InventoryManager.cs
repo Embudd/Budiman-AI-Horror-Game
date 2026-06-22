@@ -11,14 +11,14 @@ public class InventoryManager : MonoBehaviour
         Items.Add(item);
     }
 
-    public bool CheckItem(string id)
+    public bool CheckItem(ItemID keyID)
     {
-        bool isExists = Items.Exists(ItemData => string.Equals(ItemData.ID, id));
+        bool isExists = Items.Exists(ItemData => string.Equals(ItemData.ID, keyID));
         return isExists;
     }
 
     public void RemoveItem(ItemData item)
     {
         Items.Remove(item);
-    }
+    }    
 }

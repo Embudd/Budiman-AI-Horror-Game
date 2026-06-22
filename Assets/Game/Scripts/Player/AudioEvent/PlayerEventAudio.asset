@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2209e7d2cc1e6b48b18ac580c5de96c, type: 3}
+  m_Name: PlayerEventAudio
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudioEvent
+  _walkClips: {fileID: 11400000, guid: 7a6f462b45bb2c34a97026551d348248, type: 2}
+  _runClips: {fileID: 11400000, guid: 2801d7d3dcd0d1044a33d87f54f31545, type: 2}

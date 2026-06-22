@@ -5,23 +5,22 @@ public abstract class Door : MonoBehaviour, IInteractable
 {
     [Header("Door Config")]
     [SerializeField] protected string _name;
-    [SerializeField] protected Transform _doorTransform;
+    [SerializeField] protected Transform _doorTransform;  
     [SerializeField] protected float _openDuration = 1.0f;
     [SerializeField] protected LeanTweenType _easingType;
     [SerializeField] protected bool _isLocked;
-    [SerializeField] protected string _keyID;
+    [SerializeField] protected ItemID _keyID;
 
-    protected bool _isAnimating;    
-    protected bool _isOpen;
+    [Header("Door Audio")]
+    [SerializeField] protected AudioSource _audioSource;
+    [SerializeField] protected DoorAudioEvent _doorAudioEvent;
 
     protected LTDescr _animatingDoorLeanTween;
+    protected bool _isAnimating;    
+    protected bool _isOpen;    
 
     public string Name => _name;
-    public bool IsAnimating => _isAnimating;
-
-    public event Action OnDoorOpened;
-    public event Action OnDoorClosed;
-    public event Action OnDoorLocked;
+    public bool IsAnimating => _isAnimating;  
     
     public void Interact(PlayerCharacter character)
     {
@@ -36,7 +35,7 @@ public abstract class Door : MonoBehaviour, IInteractable
             }
             else
             {
-                OnDoorLocked?.Invoke();
+                Locked();
             }
         }
         else
@@ -54,15 +53,15 @@ public abstract class Door : MonoBehaviour, IInteractable
 
     public virtual void Open()
     {
-        _isOpen = true;
-        OnDoorOpened?.Invoke();                
+        _isOpen = true;        
     }
 
     public virtual void Close()
     {
-        _isOpen = false;
-        OnDoorClosed?.Invoke();        
+        _isOpen = false;        
     }
+
+    public abstract void Locked();
 
     void OnDestroy()
     {

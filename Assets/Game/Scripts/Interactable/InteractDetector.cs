@@ -60,17 +60,16 @@ public class InteractDetector : MonoBehaviour
             {
                 _detectedInteractable = interactable;    
 
-                HUDManager.Instance.InteractionInfoUI.SetItemNameText(_detectedInteractable.Name);
-                HUDManager.Instance.InteractionInfoUI.SetVisible(true);
                 HUDManager.Instance.CrosshairUI.SetHighligth(true);
+                HUDManager.Instance.InteractionInfoUI.SetVisible(true);
             }
         }
         else
         {
             _detectedInteractable = null;
-
-            HUDManager.Instance.InteractionInfoUI.SetVisible(false);
+            
             HUDManager.Instance.CrosshairUI.SetHighligth(false);
+            HUDManager.Instance.InteractionInfoUI.SetVisible(false);
         }        
     }
 
@@ -81,8 +80,6 @@ public class InteractDetector : MonoBehaviour
         _detectedInteractable.Interact(_owner);
         _detectedInteractable = null;        
         _isInteracting = true;
-
-        HUDManager.Instance.InteractionInfoUI.SetVisible(false);
     }
 
      private void OnDrawGizmosSelected()

@@ -4,9 +4,9 @@ using UnityEngine;
 public class ItemData
 {
     public string Name;
-    public string ID;
+    public ItemID ID;
 
-    public ItemData(string name, string id) 
+    public ItemData(string name, ItemID id) 
     {
         Name = name;
         ID = id;   

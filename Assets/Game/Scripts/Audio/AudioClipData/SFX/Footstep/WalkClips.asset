@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7f41a4216a07440a3025da9f9c257b, type: 3}
+  m_Name: WalkClips
+  m_EditorClassIdentifier: Assembly-CSharp::AudioClipsData
+  _clips:
+  - {fileID: 8300000, guid: 1ebe153aa75ab9b43baf01df103a039d, type: 3}
+  - {fileID: 8300000, guid: b7138845a4b6dd1408b9dc7da1432473, type: 3}
+  - {fileID: 8300000, guid: 411280754d7774a4c93c72c33389fd61, type: 3}
+  - {fileID: 8300000, guid: 67a440f16688b6447b59ba81c219101c, type: 3}
+  - {fileID: 8300000, guid: 052d47d16b6d15048ad675770673e25b, type: 3}
+  - {fileID: 8300000, guid: 722d477e099a59a4eb13f8a585df94a4, type: 3}
+  - {fileID: 8300000, guid: 7d648a98bcc9c1a45980e6fa88d8850d, type: 3}
+  - {fileID: 8300000, guid: fbea59f05022fc347bb22fd9274c587c, type: 3}
+  _volume: 0.663
+  _spatialBlend: 0

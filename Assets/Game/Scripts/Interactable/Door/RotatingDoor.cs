@@ -1,12 +1,12 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RotatingDoor : Door
 {
+    [Header("Open Config")]
     [SerializeField] private float _openAngle;
     [SerializeField] private float _closeAngle;
+    [SerializeField] protected Collider _doorCollider;
 
     public override void Open()
     {
@@ -15,6 +15,7 @@ public class RotatingDoor : Door
             LeanTween.cancel(_animatingDoorLeanTween.id);
         }
 
+        _doorAudioEvent.DoorOpened(_audioSource);
         RotateDoor(_openAngle);
         base.Open();
     }
@@ -26,31 +27,42 @@ public class RotatingDoor : Door
             LeanTween.cancel(_animatingDoorLeanTween.id);
         }
 
+        _doorAudioEvent.DoorClosed(_audioSource);
         RotateDoor(_closeAngle);
         base.Close();
+    }
+
+    public override void Locked()
+    {
+        _doorAudioEvent.DoorLocked(_audioSource);
     }
 
     private void RotateDoor(float targetRotate)
     {
         _isAnimating = true;
+        _doorCollider.enabled = false;
 
         float startAngle = _doorTransform.localEulerAngles.y;
-        
-        // Get the angle to reach from start to target
+
         float deltaAngle = Mathf.DeltaAngle(startAngle, targetRotate);
-                        
-        float totalDistance = _openAngle;
-        float angleDistance = Mathf.Abs(deltaAngle); // Abs it so it never be minus for time calculation
 
-        // normalized time based on how far the angle from start to target 
+        float totalDistance = Mathf.Abs(_openAngle);
+        float angleDistance = Mathf.Abs(deltaAngle);
+
         float normalizedDuration = (angleDistance / totalDistance) * _openDuration;
-
-        _animatingDoorLeanTween =  LeanTween.value(startAngle, targetRotate, normalizedDuration)
-                                    .setEase(_easingType)
-                                    .setOnUpdate((float rot) => 
-                                    _doorTransform.localRotation = Quaternion.Euler(0, rot, 0))
-                                    .setOnComplete(() => _isAnimating = false);
-
         
+        float targetAngle = startAngle + deltaAngle;
+
+        _animatingDoorLeanTween = LeanTween.value(startAngle, targetAngle, normalizedDuration)
+                                    .setEase(_easingType)
+                                    .setOnUpdate((float rot) =>
+                                        _doorTransform.localRotation = Quaternion.Euler(0, rot, 0))
+                                    .setOnComplete(OnAnimationComplete);
+    }
+
+    private void OnAnimationComplete()
+    {
+        _isAnimating = false;
+        _doorCollider.enabled = true;
     }
 }

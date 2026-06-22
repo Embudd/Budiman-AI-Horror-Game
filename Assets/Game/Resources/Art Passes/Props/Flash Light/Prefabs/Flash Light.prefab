@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4171387126413776225}
-  - component: {fileID: 8540084725213511942}
   - component: {fileID: 5342125608474505751}
-  - component: {fileID: 3692007273681898781}
+  - component: {fileID: 6792123711960551357}
   m_Layer: 6
   m_Name: Flash Light
   m_TagString: Untagged
@@ -35,21 +34,6 @@ Transform:
   - {fileID: 1934692803718136249}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -24.21, z: -91.93}
---- !u!114 &8540084725213511942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400304094134046004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2f9d6a07edcccd4c97f75e9996306b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  _data:
-    Name: Flashlight
-    ID: Flashlight_001
 --- !u!65 &5342125608474505751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.15, z: 0.47}
   m_Center: {x: 0, y: 0.06, z: 0.17}
---- !u!114 &3692007273681898781
+--- !u!114 &6792123711960551357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,17 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1400304094134046004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a54ce965460e5d449ecebaa5a8cbf41, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
-  m_SerializedVersion: 0
-  m_OverrideArea: 1
-  m_Area: 1
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
+  m_EditorClassIdentifier: Assembly-CSharp::Flashlight
+  _itemEvent: {fileID: 11400000, guid: 908a34f4b6992094ab212e93a8d8c74c, type: 2}
+  _data:
+    Name: Flashlight
+    ID: 5
 --- !u!1 &3878117691585443993
 GameObject:
   m_ObjectHideFlags: 0

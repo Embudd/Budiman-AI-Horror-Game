@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7f41a4216a07440a3025da9f9c257b, type: 3}
+  m_Name: RunClips
+  m_EditorClassIdentifier: Assembly-CSharp::AudioClipsData
+  _clips:
+  - {fileID: 8300000, guid: 1620c38327da4974392d925629164e21, type: 3}
+  - {fileID: 8300000, guid: a7b0cc9a15e787b4a9550763b02dc6e4, type: 3}
+  - {fileID: 8300000, guid: bc1737cb927697a44a4f9596c8e0a88e, type: 3}
+  - {fileID: 8300000, guid: bc31d2332821f5d40a0c22abe7ab4579, type: 3}
+  - {fileID: 8300000, guid: de06f07ff9af6474ba77853f0e9f43eb, type: 3}
+  - {fileID: 8300000, guid: a4ff2a336b0bc5246b47be50c6b025aa, type: 3}
+  - {fileID: 8300000, guid: b89ea4119410fcb46bd685e5a9e1eb0e, type: 3}
+  - {fileID: 8300000, guid: 19790aa3da124844e8e95a1f78822018, type: 3}
+  _volume: 0.663
+  _spatialBlend: 0
