@@ -3,9 +3,10 @@ public enum ItemID
     ParentRoomKey,
     ChildRoomKey,
     StorageRoomKey,
-    LivingRoom,
+    LivingRoomKey,
     BasementKey,
     SecretRoomKey,
+    MainDoorKey,
     Flashlight, 
     Medicine
 }
