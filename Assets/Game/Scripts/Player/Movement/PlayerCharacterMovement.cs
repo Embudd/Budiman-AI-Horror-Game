@@ -184,8 +184,7 @@ public class PlayerCharacterMovement : MonoBehaviour
         if (_stepTimer <= 0)
         {
             float interval = _currentState == PlayerState.Run ? _runStepInterval : _walkStepInterval;
-            _stepTimer = interval;
-            Debug.Log($"Footstep triggered! State: {_currentState}, Timer reset to: {interval}");
+            _stepTimer = interval;            
             _playerAudioEvent.PlayFootStepSFX(_currentState);
         }
     }

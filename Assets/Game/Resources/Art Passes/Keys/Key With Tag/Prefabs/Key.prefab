@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6016341755201388199}
   - component: {fileID: 6448738706545893571}
   - component: {fileID: 6994233554281487007}
+  - component: {fileID: 8234047357414735389}
   m_Layer: 6
   m_Name: Key
   m_TagString: Untagged
@@ -70,6 +71,22 @@ MonoBehaviour:
   _itemEvent: {fileID: 11400000, guid: 908a34f4b6992094ab212e93a8d8c74c, type: 2}
   _data:
     Name: ChildRoom Key
+    ID: 1
+--- !u!114 &8234047357414735389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35061563621278804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9411729fca9cf6e45892e818bd9a8c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Key
+  _itemEvent: {fileID: 11400000, guid: 908a34f4b6992094ab212e93a8d8c74c, type: 2}
+  _data:
+    Name: Child Room Key
     ID: 1
 --- !u!1 &3043001567382475002
 GameObject:
