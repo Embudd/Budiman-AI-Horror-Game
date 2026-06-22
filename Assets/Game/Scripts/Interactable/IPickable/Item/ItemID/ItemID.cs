@@ -7,6 +7,11 @@ public enum ItemID
     BasementKey,
     SecretRoomKey,
     MainDoorKey,
+=======
+    LivingRoom,
+    BasementKey,
+    SecretRoomKey,
+>>>>>>> Stashed changes
     Flashlight, 
     Medicine
 }
